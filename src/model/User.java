@@ -1,16 +1,17 @@
 package model;
 
-public abstract class User {
+public abstract class User extends Entity {
     private String firstName;
     private String lastName;
-    private String address;
+    private Location location;
     private String phone;
 
-    public User() {}
-    public User(String firstName, String lastName, String address, String phone) {
+    public User() { super(); }
+    public User(String firstName, String lastName, Location location, String phone) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
+        this.location = location;
         this.phone = phone;
     }
 
@@ -30,13 +31,9 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
-    }
+    public Location getLocation() { return location; }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public void setLocation(Location location) { this.location = location; }
 
     public String getPhone() {
         return phone;
@@ -51,7 +48,7 @@ public abstract class User {
         return "User{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
+                ", address='" + location.getAddress() + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
     }

@@ -9,15 +9,15 @@ public class Meal extends Item {
     private String category;
 
     public Meal() {
-        super("Null", 0, ItemType.NONE);
+        super("Null", 0, new Restaurant());
         this.ingredients = new ArrayList<String>();
         this.ingredients.add("Empty meal");
         this.weight = 0;
         this.category = "None";
     }
 
-    public Meal(String name, List<String> ingredients, int price, int weight, String category) {
-        super(name, price, ItemType.MEAL);
+    public Meal(String name, List<String> ingredients, double price, int weight, String category, Restaurant restaurant) {
+        super(name, price, restaurant);
         this.ingredients = ingredients;
         this.weight = weight;
         this.category = category;
@@ -49,8 +49,7 @@ public class Meal extends Item {
 
     @Override
     public String toString() {
-        return "Meal{" +
-                "name='" + super.getName() + '\'' +
+        return super.getName() + '\'' +
                 ", ingredients=" + ingredients +
                 ", price=" + super.getPrice() +
                 ", weight=" + weight +

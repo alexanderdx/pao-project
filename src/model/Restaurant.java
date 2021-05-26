@@ -1,18 +1,20 @@
 package model;
 
-import java.util.List;
-
-public class Restaurant {
+public class Restaurant extends Entity {
     private String name;
-    private List<Meal> menu;
-    private String address;
+    private Menu menu;
+    private Location location;
     private double rating;
 
-    public Restaurant(String name, List<Meal> menu, String address, int rating) {
+    public Restaurant(String name, Menu menu, Location location, double rating) {
+        super();
         this.name = name;
         this.menu = menu;
-        this.address = address;
+        this.location = location;
         this.rating = rating;
+    }
+
+    public Restaurant() {
     }
 
     public String getName() {
@@ -23,20 +25,20 @@ public class Restaurant {
         this.name = name;
     }
 
-    public List<Meal> getMenu() {
+    public Menu getMenu() {
         return menu;
     }
 
-    public void setMenu(List<Meal> menu) {
+    public void setMenu(Menu menu) {
         this.menu = menu;
     }
 
-    public String getAddress() {
-        return address;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(Location location) {
+        this.location = location;
     }
 
     public double getRating() {
@@ -47,13 +49,15 @@ public class Restaurant {
         this.rating = rating;
     }
 
+    public void addToMenu(Meal meal) { menu.addToMenu(meal); }
+
+    public void removeFromMenu(Meal meal) { menu.removeFromMenu(meal); }
+
     @Override
     public String toString() {
-        return "Restaurant{" +
-                "name='" + name + '\'' +
-                ", menu=" + menu +
-                ", address='" + address + '\'' +
-                ", rating=" + rating +
-                '}';
+        return "------------ Restaurant " + name + " ------------"
+                + "\nAdresa: " + location.getAddress()
+                + "\nRating: " + rating
+                + "\nMeniu: " + menu.toString();
     }
 }

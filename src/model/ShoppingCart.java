@@ -5,7 +5,8 @@ import java.util.List;
 
 public class ShoppingCart {
     private final List<Item> items;
-    private int totalPrice;
+    private double totalPrice;
+    private Restaurant restaurant; // you can only order items from a single restaurant
 
     public ShoppingCart() {
         items = new ArrayList<>();
@@ -13,6 +14,14 @@ public class ShoppingCart {
     }
 
     public void addItem(Item item) {
+        if (items.isEmpty())
+            restaurant = item.getRestaurant();
+
+        if (item.getRestaurant() != restaurant) {
+            System.out.println("You can only order items from a single restaurant!");
+            return;
+        }
+
         items.add(item);
         totalPrice += item.getPrice();
     }
@@ -22,12 +31,21 @@ public class ShoppingCart {
         totalPrice -= item.getPrice();
     }
 
+    public void emptyCart() {
+        items.clear();
+        totalPrice = 0;
+    }
+
     public List<Item> getItems() {
         return items;
     }
 
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
     @Override

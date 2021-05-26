@@ -1,14 +1,15 @@
 package model;
 
-public class Item {
+public abstract class Item extends Entity {
     private String name;
-    private int price;
-    private ItemType type;
+    private double price;
+    private Restaurant restaurant;
 
-    public Item(String name, int price, ItemType type) {
+    public Item(String name, double price, Restaurant restaurant) {
+        super();
         this.name = name;
         this.price = price;
-        this.type = type;
+        this.restaurant = restaurant;
     }
 
     public String getName() {
@@ -19,20 +20,20 @@ public class Item {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public ItemType getType() {
-        return type;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setType(ItemType type) {
-        this.type = type;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override
@@ -40,7 +41,6 @@ public class Item {
         return "Item{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
-                ", type=" + type +
                 '}';
     }
 }

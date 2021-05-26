@@ -3,11 +3,13 @@ package model;
 public class Driver extends User {
     private String licensePlate;
     private String carModel;
+    private boolean isAvailable;
 
-    public Driver(String firstName, String lastName, String address, String phone, String licensePlate, String carModel) {
-        super(firstName, lastName, address, phone);
+    public Driver(String firstName, String lastName, Location location, String phone, String licensePlate, String carModel) {
+        super(firstName, lastName, location, phone);
         this.licensePlate = licensePlate;
         this.carModel = carModel;
+        this.isAvailable = true;
     }
 
     public String getLicensePlate() {
@@ -26,12 +28,16 @@ public class Driver extends User {
         this.carModel = carModel;
     }
 
+    public void setAvailability(boolean var) { this.isAvailable = var; }
+
+    public boolean getAvailability() { return this.isAvailable; }
+
     @Override
     public String toString() {
         return "Driver{" +
                 "firstName='" + super.getFirstName() + '\'' +
                 ", lastName='" + super.getLastName() + '\'' +
-                ", address='" + super.getAddress() + '\'' +
+                ", address='" + super.getLocation().getAddress() + '\'' +
                 ", phone='" + super.getPhone() + '\'' +
                 "licensePlate='" + licensePlate + '\'' +
                 ", carModel='" + carModel + '\'' +

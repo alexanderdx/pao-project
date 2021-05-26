@@ -1,35 +1,29 @@
 package service;
 
-import model.Meal;
-import model.Restaurant;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
+import java.util.UUID;
+import model.Restaurant;
+import repository.actionsimpl.RestaurantRepositoryImpl;
 
 public class RestaurantService {
-    private static List<Restaurant> restaurants = new ArrayList<>();
+    private static final List<Restaurant> restaurants = new ArrayList<>();
+    private static final RestaurantRepositoryImpl restaurantRepository = new RestaurantRepositoryImpl();
 
-    public void addRestaurant(Scanner in) {
-        System.out.println("Enter restaurant data:");
-        System.out.println("Name:");
-        String name = in.nextLine();
-
-        // To DO - read menu
-        List<Meal> menu = new ArrayList<>();
-
-        System.out.println("Address:");
-        String address = in.nextLine();
-
-        System.out.println("Rating:");
-        int rating = Integer.parseInt(in.nextLine());
-
-        Restaurant restaurant = new Restaurant(name, menu, address, rating);
-        restaurants.add(restaurant);
+    public static boolean addRestaurant(Restaurant restaurant) {
+        return restaurantRepository.addRestaurant(restaurant);
     }
 
-    public void printRestaurants() {
-        System.out.println(restaurants);
+    public static List<Restaurant> retrieveAllRestaurants() {
+        return restaurantRepository.retrieveAllRestaurants();
+    }
+
+    public static Optional<Restaurant> getRestaurantByID(UUID id) {
+        return restaurantRepository.getRestaurantByID(id);
+    }
+
+    public static Optional<Restaurant> getRestaurantByName(String name) {
+        return restaurantRepository.getRestaurantByName(name);
     }
 }

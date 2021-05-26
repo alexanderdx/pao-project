@@ -1,42 +1,21 @@
 package model;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-public class Order {
-    private UUID orderID;
-    private Date creationDate;
+public class Order extends Entity {
     private User customer;
     private Driver assignedDriver;
     private List<Item> items;
-    private final int totalPrice;
+    private final double totalPrice;
     private Restaurant restaurant;
 
     public Order(User customer, Driver assignedDriver, ShoppingCart cart, Restaurant restaurant) {
-        this.orderID = UUID.randomUUID();
-        this.creationDate = new Date();
+        super();
         this.customer = customer;
         this.assignedDriver = assignedDriver;
         this.items = cart.getItems();
         this.totalPrice = cart.getTotalPrice();
         this.restaurant = restaurant;
-    }
-
-    public UUID getOrderID() {
-        return orderID;
-    }
-
-    public void setOrderID(UUID orderID) {
-        this.orderID = orderID;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public User getCustomer() {
@@ -75,15 +54,15 @@ public class Order {
         return items;
     }
 
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "orderID=" + orderID +
-                ", creationDate=" + creationDate +
+                "orderID=" + super.getUUID() +
+                ", creationDate=" + super.getCreationDate() +
                 ", customer=" + customer +
                 ", assignedDriver=" + assignedDriver +
                 ", items=" + items +
