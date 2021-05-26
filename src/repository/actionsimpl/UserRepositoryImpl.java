@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.UUID;
 import model.Customer;
 import model.Driver;
-import model.User;
 import repository.actions.UserRepository;
 import utils.DbConnection;
 
@@ -24,17 +23,32 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<Customer> getAllCustomers() {
         return null;
     }
 
     @Override
-    public Optional<User> getUserByID(UUID uuid) {
+    public List<Driver> getAllDrivers() {
+        return null;
+    }
+
+    @Override
+    public Optional<Customer> getCustomerByID(UUID uuid) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<User> getUserByName(String firstName, String lastName) {
+    public Optional<Driver> getDriverByID(UUID uuid) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Customer> getCustomerByName(String firstName, String lastName) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Driver> getDriverByName(String firstName, String lastName) {
         return Optional.empty();
     }
 }

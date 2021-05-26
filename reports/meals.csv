@@ -1,0 +1,4 @@
+uuid, name, price, weight, category, ingredients
+50b27c44-be59-11eb-8529-0242ac130003, pizza quattro formaggi, 30.0, 150, pizza, sos de rosii, 
+569af0a0-be59-11eb-8529-0242ac130003, pizza carbonara, 24.0, 200, pizza, mozzarella,  bacon,  parmezan, 
+6846b900-be5a-11eb-8529-0242ac130003, burger royal, 27.0, 400, burger, vita,  ceapa,  cheddar,  rosii,  maioneza,  cartofi, 

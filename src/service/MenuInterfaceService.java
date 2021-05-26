@@ -138,10 +138,10 @@ public class MenuInterfaceService {
 
         report.append("uuid,nume,adresa,rating\n");
         for (Restaurant r : restaurants) {
-            report.append(r.getUUID().toString()).append(',');
-            report.append(r.getName()).append(',');
-            report.append(r.getLocation().getAddress()).append(',');
-            report.append(r.getRating() + ',');
+            report.append(r.getUUID().toString()).append(", ");
+            report.append(r.getName()).append(", ");
+            report.append(r.getLocation().getAddress()).append(", ");
+            report.append(String.valueOf(r.getRating())).append(", ");
             report.append("\n");
         }
         try {
@@ -149,6 +149,28 @@ public class MenuInterfaceService {
                 Files.createFile(Paths.get(path + "restaurants.csv"));
             }
             Files.write(Paths.get(path + "restaurants.csv"), report.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        report = new StringBuilder();
+        List<Meal> meals = MealService.retrieveAllMeals();
+
+        report.append("uuid, name, price, weight, category, ingredients\n");
+        for (Meal m : meals) {
+            report.append(m.getUUID().toString()).append(", ");
+            report.append(m.getName()).append(", ");
+            report.append(String.valueOf(m.getPrice())).append(", ");
+            report.append(String.valueOf(m.getWeight())).append(", ");
+            report.append(m.getCategory()).append(", ");
+            report.append(String.join(", ", m.getIngredients())).append(", ");
+            report.append("\n");
+        }
+        try {
+            if (!Files.exists(Paths.get(path + "meals.csv"))) {
+                Files.createFile(Paths.get(path + "meals.csv"));
+            }
+            Files.write(Paths.get(path + "meals.csv"), report.toString().getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

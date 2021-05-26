@@ -5,16 +5,21 @@ import java.util.Optional;
 import java.util.UUID;
 import model.Customer;
 import model.Driver;
-import model.User;
 
 public interface UserRepository {
     boolean addCustomer(Customer customer);
 
     boolean addDriver(Driver driver);
 
-    List<User> getAllUsers();
+    List<Customer> getAllCustomers();
 
-    Optional<User> getUserByID(UUID uuid);
+    List<Driver> getAllDrivers();
 
-    Optional<User> getUserByName(String firstName, String lastName);
+    Optional<Customer> getCustomerByID(UUID uuid);
+
+    Optional<Driver> getDriverByID(UUID uuid);
+
+    Optional<Customer> getCustomerByName(String firstName, String lastName);
+
+    Optional<Driver> getDriverByName(String firstName, String lastName);
 }

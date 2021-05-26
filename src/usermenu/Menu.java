@@ -30,8 +30,8 @@ public class Menu {
                     case 0 -> stop = true;
                     case 1 -> MenuInterfaceService.registerCustomer();
                     case 2 -> MenuInterfaceService.registerDriver();
-                    case 3 -> MenuInterfaceService.addRestaurant();
-                    case 4 -> MenuInterfaceService.printUsers();
+                    case 3 -> MenuInterfaceService.printUsers();
+                    case 4 -> MenuInterfaceService.addRestaurant();
                     case 5 -> MenuInterfaceService.printRestaurants();
                     case 6 -> MenuInterfaceService.generateCSVReport();
                 }
