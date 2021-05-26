@@ -1,5 +1,7 @@
 package model;
 
+import java.util.UUID;
+
 public class Driver extends User {
     private String licensePlate;
     private String carModel;
@@ -7,6 +9,13 @@ public class Driver extends User {
 
     public Driver(String firstName, String lastName, Location location, String phone, String licensePlate, String carModel) {
         super(firstName, lastName, location, phone);
+        this.licensePlate = licensePlate;
+        this.carModel = carModel;
+        this.isAvailable = true;
+    }
+
+    public Driver(UUID id, String firstName, String lastName, Location location, String phone, String licensePlate, String carModel) {
+        super(id, firstName, lastName, location, phone);
         this.licensePlate = licensePlate;
         this.carModel = carModel;
         this.isAvailable = true;

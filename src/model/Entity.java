@@ -12,6 +12,11 @@ public abstract class Entity {
         creationDate = new Date();
     }
 
+    public Entity(UUID id) {
+        uuid = id;
+        creationDate = new Date();
+    }
+
     public UUID getUUID() {
         return uuid;
     }

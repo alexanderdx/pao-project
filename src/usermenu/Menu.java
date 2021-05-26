@@ -16,7 +16,7 @@ public class Menu {
                 3) Add a restaurant
                 4) Show all users
                 5) Show restaurants
-                6) Add item to cart for customer no. x (where x = index in print array)
+                6) Generate CSV report
                 """;
 
         boolean stop = false;
@@ -33,19 +33,7 @@ public class Menu {
                     case 3 -> MenuInterfaceService.addRestaurant();
                     case 4 -> MenuInterfaceService.printUsers();
                     case 5 -> MenuInterfaceService.printRestaurants();
-                    case 6 -> {
-                        System.out.println("Choose customer's index:");
-                        int index = Integer.parseInt(scanner.nextLine());
-
-                        System.out.println("Enter item's name:");
-                        String itemName = scanner.nextLine();
-
-                        System.out.println("Enter item's price:");
-                        int price = Integer.parseInt(scanner.nextLine());
-
-//                    Item item = new Item(itemName, price, ItemType.MEAL);
-//                    userService.addItemToCart(item, index);
-                    }
+                    case 6 -> MenuInterfaceService.generateCSVReport();
                 }
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());

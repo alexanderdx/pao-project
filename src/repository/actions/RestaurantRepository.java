@@ -11,6 +11,8 @@ public interface RestaurantRepository {
 
     boolean addRestaurant(Restaurant restaurant);
 
+    boolean deleteRestaurant(Restaurant restaurant);
+
     Optional<Restaurant> getRestaurantByID(UUID id);
 
     Optional<Restaurant> getRestaurantByName(String name);

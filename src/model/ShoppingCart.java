@@ -14,14 +14,6 @@ public class ShoppingCart {
     }
 
     public void addItem(Item item) {
-        if (items.isEmpty())
-            restaurant = item.getRestaurant();
-
-        if (item.getRestaurant() != restaurant) {
-            System.out.println("You can only order items from a single restaurant!");
-            return;
-        }
-
         items.add(item);
         totalPrice += item.getPrice();
     }

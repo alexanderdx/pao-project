@@ -1,15 +1,22 @@
 package model;
 
+import java.util.UUID;
+
 public abstract class Item extends Entity {
     private String name;
     private double price;
     private Restaurant restaurant;
 
-    public Item(String name, double price, Restaurant restaurant) {
+    public Item(String name, double price) {
         super();
         this.name = name;
         this.price = price;
-        this.restaurant = restaurant;
+    }
+
+    public Item(UUID id, String name, double price) {
+        super(id);
+        this.name = name;
+        this.price = price;
     }
 
     public String getName() {
@@ -26,14 +33,6 @@ public abstract class Item extends Entity {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
 
     @Override

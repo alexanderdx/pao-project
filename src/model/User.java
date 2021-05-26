@@ -1,5 +1,7 @@
 package model;
 
+import java.util.UUID;
+
 public abstract class User extends Entity {
     private String firstName;
     private String lastName;
@@ -9,6 +11,14 @@ public abstract class User extends Entity {
     public User() { super(); }
     public User(String firstName, String lastName, Location location, String phone) {
         super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.location = location;
+        this.phone = phone;
+    }
+
+    public User(UUID id, String firstName, String lastName, Location location, String phone) {
+        super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.location = location;

@@ -1,5 +1,9 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.UUID;
+
 public class Restaurant extends Entity {
     private String name;
     private Menu menu;
@@ -8,6 +12,14 @@ public class Restaurant extends Entity {
 
     public Restaurant(String name, Menu menu, Location location, double rating) {
         super();
+        this.name = name;
+        this.menu = menu;
+        this.location = location;
+        this.rating = rating;
+    }
+
+    public Restaurant(UUID id, String name, Menu menu, Location location, double rating) {
+        super(id);
         this.name = name;
         this.menu = menu;
         this.location = location;
@@ -55,9 +67,15 @@ public class Restaurant extends Entity {
 
     @Override
     public String toString() {
-        return "------------ Restaurant " + name + " ------------"
+        return "-------------------- Restaurant " + name + " --------------------"
                 + "\nAdresa: " + location.getAddress()
                 + "\nRating: " + rating
-                + "\nMeniu: " + menu.toString();
+                + "\nMeniu: " + menu.toString()
+                + "\nUUID: " + super.getUUID().toString()
+                + "\n---------------------------------------------------------";
+    }
+
+    public static Restaurant fromResultSet(ResultSet resultSet, Menu menu) throws SQLException {
+        return new Restaurant(UUID.fromString(resultSet.getString(1)), resultSet.getString(2), menu, new Location(resultSet.getString(3)), resultSet.getDouble(4));
     }
 }

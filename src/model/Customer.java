@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Customer extends User {
     private final List<Order> orders;
@@ -14,6 +15,12 @@ public class Customer extends User {
 
     public Customer(String firstName, String lastName, Location location, String phone) {
         super(firstName, lastName, location, phone);
+        this.orders = new ArrayList<>();
+        this.cart = new ShoppingCart();
+    }
+
+    public Customer(UUID id, String firstName, String lastName, Location location, String phone) {
+        super(id, firstName, lastName, location, phone);
         this.orders = new ArrayList<>();
         this.cart = new ShoppingCart();
     }

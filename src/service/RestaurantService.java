@@ -1,6 +1,5 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,7 +7,6 @@ import model.Restaurant;
 import repository.actionsimpl.RestaurantRepositoryImpl;
 
 public class RestaurantService {
-    private static final List<Restaurant> restaurants = new ArrayList<>();
     private static final RestaurantRepositoryImpl restaurantRepository = new RestaurantRepositoryImpl();
 
     public static boolean addRestaurant(Restaurant restaurant) {

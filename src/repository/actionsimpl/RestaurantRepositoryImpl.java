@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import model.Location;
 import model.Menu;
 import model.Restaurant;
 import repository.actions.RestaurantRepository;
@@ -17,6 +16,7 @@ import utils.Queries;
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     private final DbConnection dbConnection = DbConnection.getInstance();
+    private final MealRepositoryImpl mealRepository = new MealRepositoryImpl();
 
     @Override
     public List<Restaurant> retrieveAllRestaurants() {
@@ -27,27 +27,81 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
             ResultSet resultSet = pstm.executeQuery();
 
             while (resultSet.next()) {
-                restaurants.add(new Restaurant(resultSet.getString(3), new Menu(), new Location(resultSet.getString(2)), 4.7));
+                UUID restaurantID = UUID.fromString(resultSet.getString(1));
+                Menu menu = new Menu(mealRepository.getMealsFromRestaurant(restaurantID));
+                restaurants.add(Restaurant.fromResultSet(resultSet, menu));
             }
+
+            return restaurants;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return restaurants;
+        return null;
     }
 
     @Override
     public boolean addRestaurant(Restaurant restaurant) {
-        return true;
+         try {
+             PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.ADD_RESTAURANT);
+             pstm.setString(1, restaurant.getUUID().toString());
+             pstm.setString(2, restaurant.getLocation().getAddress());
+             pstm.setString(3, restaurant.getName());
+             pstm.setDouble(4, restaurant.getRating());
+
+             return pstm.executeUpdate() == 1;
+
+         } catch (SQLException throwables) {
+             throwables.printStackTrace();
+         }
+
+         return false;
     }
 
     @Override
     public Optional<Restaurant> getRestaurantByID(UUID id) {
+        try {
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.GET_RESTAURANT_BY_ID);
+            pstm.setString(1, id.toString());
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            Menu menu = new Menu(mealRepository.getMealsFromRestaurant(id));
+
+            if (resultSet.next()) {
+                return Optional.of(Restaurant.fromResultSet(resultSet, menu));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         return Optional.empty();
     }
 
     @Override
     public Optional<Restaurant> getRestaurantByName(String name) {
+        try {
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.GET_RESTAURANT_BY_NAME);
+            pstm.setString(1, name);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            if (resultSet.next()) {
+                UUID restaurantID = UUID.fromString(resultSet.getString(1));
+                Menu menu = new Menu(mealRepository.getMealsFromRestaurant(restaurantID));
+                return Optional.of(Restaurant.fromResultSet(resultSet, menu));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         return Optional.empty();
+    }
+
+    @Override
+    public boolean deleteRestaurant(Restaurant restaurant) {
+        return false;
     }
 }

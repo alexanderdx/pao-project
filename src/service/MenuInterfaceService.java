@@ -1,5 +1,8 @@
 package service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -74,7 +77,7 @@ public class MenuInterfaceService {
             if (weight == -1)
                 break;
 
-            restaurant.addToMenu(new Meal(nume_preparat, ingrediente, pret, weight, categorie, restaurant));
+            restaurant.addToMenu(new Meal(nume_preparat, ingrediente, pret, weight, categorie));
         }
 
         RestaurantService.addRestaurant(restaurant);
@@ -126,10 +129,40 @@ public class MenuInterfaceService {
         logger.log("A driver was added");
     }
 
+    public static void generateCSVReport() {
+        logger.log("CSV report was generated");
+        final String path = "reports/";
+
+        StringBuilder report = new StringBuilder();
+        List<Restaurant> restaurants = RestaurantService.retrieveAllRestaurants();
+
+        report.append("uuid,nume,adresa,rating\n");
+        for (Restaurant r : restaurants) {
+            report.append(r.getUUID().toString()).append(',');
+            report.append(r.getName()).append(',');
+            report.append(r.getLocation().getAddress()).append(',');
+            report.append(r.getRating() + ',');
+            report.append("\n");
+        }
+        try {
+            if (!Files.exists(Paths.get(path + "restaurants.csv"))) {
+                Files.createFile(Paths.get(path + "restaurants.csv"));
+            }
+            Files.write(Paths.get(path + "restaurants.csv"), report.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void printUsers() {
+
     }
 
     public static void printRestaurants() {
+        List<Restaurant> restaurants = RestaurantService.retrieveAllRestaurants();
+        for (Restaurant r : restaurants) {
+            System.out.println(r);
+        }
     }
 
     private static int parseIntWithException() {

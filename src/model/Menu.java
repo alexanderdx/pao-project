@@ -14,6 +14,13 @@ public class Menu {
         this.menu = new HashMap<String, List<Meal>>();
     }
 
+    public Menu(List<Meal> meals) {
+        this.menu = new HashMap<String, List<Meal>>();
+        for (Meal m : meals) {
+            addToMenu(m);
+        }
+    }
+
     public void addToMenu(Meal meal) {
         if (!menu.containsKey(meal.getCategory())) {
             menu.put(meal.getCategory(), new ArrayList<Meal>(Arrays.asList(meal)));
@@ -29,8 +36,9 @@ public class Menu {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-
+        sb.append("\n");
         for (String categ : menu.keySet()) {
+            sb.append("\t\t\t");
             sb.append(categ);
             sb.append(": ");
             menu.get(categ)
