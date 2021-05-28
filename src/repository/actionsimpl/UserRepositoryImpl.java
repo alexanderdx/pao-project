@@ -38,6 +38,49 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean addDriver(Driver driver) {
+        try {
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.ADD_DRIVER);
+            pstm.setString(1, driver.getUUID().toString());
+            pstm.setString(2, driver.getFirstName());
+            pstm.setString(3, driver.getLastName());
+            pstm.setString(4, driver.getLocation().getAddress());
+            pstm.setString(5, driver.getPhone());
+            pstm.setString(6, driver.getLicensePlate());
+            pstm.setString(7, driver.getCarModel());
+            pstm.setBoolean(8, driver.getAvailability());
+
+            return pstm.executeUpdate() == 1;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean deleteCustomer(UUID uuid) {
+        try {
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.DELETE_CUSTOMER);
+            pstm.setString(1, uuid.toString());
+
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteDriver(UUID uuid) {
+        try {
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.DELETE_DRIVER);
+            pstm.setString(1, uuid.toString());
+
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return false;
     }
 

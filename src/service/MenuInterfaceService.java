@@ -97,6 +97,19 @@ public class MenuInterfaceService {
         logger.log("A restaurant was added");
     }
 
+    public static void deleteRestaurant() {
+        String uuid;
+        System.out.println("Introduceti ID-ul restaurantului: ");
+
+        uuid = in.nextLine();
+        if (uuid.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        RestaurantService.deleteRestaurantByID(UUID.fromString(uuid));
+    }
+
     public static void addMeal() {
         String nume_preparat;
         List<String> ingrediente;
@@ -180,6 +193,18 @@ public class MenuInterfaceService {
         logger.log("A customer was added");
     }
 
+    public static void deleteCustomer() {
+        String uuid;
+        System.out.println("Introduceti ID-ul clientului: ");
+
+        uuid = in.nextLine();
+        if (uuid.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        UserService.deleteCustomerByID(UUID.fromString(uuid));
+    }
 
     public static void registerDriver() {
         System.out.println("Enter driver data:");
@@ -204,6 +229,19 @@ public class MenuInterfaceService {
         Driver driver = new Driver(firstName, lastName, location, phone, licensePlate, carModel);
         UserService.addDriver(driver);
         logger.log("A driver was added");
+    }
+
+    public static void deleteDriver() {
+        String uuid;
+        System.out.println("Introduceti ID-ul soferului: ");
+
+        uuid = in.nextLine();
+        if (uuid.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        UserService.deleteDriverByID(UUID.fromString(uuid));
     }
 
     public static void generateCSVReport() {

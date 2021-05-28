@@ -3,6 +3,7 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +40,7 @@ public class Customer extends User {
         Driver assignedDriver = drivers
                 .stream()
                 .filter(Driver::getAvailability)
+                .sorted(Comparator.comparing(driver -> getLocation().distanceTo(this.getLocation())))
                 .findAny()
                 .orElse(null);
 
@@ -54,7 +56,7 @@ public class Customer extends User {
     @Override
     public String toString() {
         return "Customer{" +
-                "uuid= " + super.getUUID().toString() + '\'' +
+                "uuid= '" + super.getUUID().toString() + '\'' +
                 ", firstName='" + super.getFirstName() + '\'' +
                 ", lastName='" + super.getLastName() + '\'' +
                 ", address='" + super.getLocation().getAddress() + '\'' +

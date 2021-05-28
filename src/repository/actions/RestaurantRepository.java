@@ -11,7 +11,7 @@ public interface RestaurantRepository {
 
     boolean addRestaurant(Restaurant restaurant);
 
-    boolean deleteRestaurant(Restaurant restaurant);
+    boolean deleteRestaurant(UUID uuid);
 
     Optional<Restaurant> getRestaurantByID(UUID id);
 

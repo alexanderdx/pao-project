@@ -101,7 +101,15 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public boolean deleteRestaurant(Restaurant restaurant) {
+    public boolean deleteRestaurant(UUID uuid) {
+        try {
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.DELETE_RESTAURANT);
+            pstm.setString(1, uuid.toString());
+
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return false;
     }
 }

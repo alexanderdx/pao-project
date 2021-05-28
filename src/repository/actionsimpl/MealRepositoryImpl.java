@@ -39,10 +39,10 @@ public class MealRepositoryImpl implements MealRepository {
     @Override
     public boolean deleteMeal(UUID mealID) {
         try {
-            PreparedStatement stmt = dbConnection.getDBConnection().prepareStatement(Queries.DELETE_MEAL);
-            stmt.setString(1, mealID.toString());
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.DELETE_MEAL);
+            pstm.setString(1, mealID.toString());
 
-            return stmt.executeUpdate() == 1;
+            return pstm.executeUpdate() == 1;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

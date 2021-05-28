@@ -24,6 +24,17 @@ public class Queries {
     public static final String ADD_CUSTOMER = "INSERT INTO customer(id, firstName, lastName, location, phone) "
             + "VALUES (?, ?, ?, ?, ?) ";
 
+    public static final String ADD_DRIVER = "INSERT INTO customer(id, firstName, lastName, location, phone, licensePlate, carModel, isAvailable) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
+
+    public static final String DELETE_CUSTOMER = "DELETE FROM customer WHERE id = ?";
+
+    public static final String DELETE_DRIVER = "DELETE FROM driver WHERE id = ?";
+
+    public static final String UPDATE_CUSTOMER = "";
+
+    public static final String UPDATE_DRIVER = "";
+
     public static final String RETRIEVE_ALL_CUSTOMERS = "SELECT id, firstName, lastName, location, phone FROM customer";
 
     public static final String RETRIEVE_ALL_DRIVERS = "SELECT id, firstName, lastName, location, phone, licensePlate, carModel, isAvailable FROM driver";
@@ -32,4 +43,10 @@ public class Queries {
             + "VALUES (?, ?, ?, ?, ?, ?)";
 
     public static final String DELETE_MEAL = "DELETE FROM meal WHERE id = ?";
+
+    public static final String UPDATE_MEAL = "";
+
+    public static final String DELETE_RESTAURANT = "DELETE FROM restaurant WHERE id = ?";
+
+    public static final String UPDATE_RESTAURANT = "";
 }

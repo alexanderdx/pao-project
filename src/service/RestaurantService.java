@@ -13,6 +13,10 @@ public class RestaurantService {
         return restaurantRepository.addRestaurant(restaurant);
     }
 
+    public static boolean deleteRestaurantByID(UUID uuid) {
+        return restaurantRepository.deleteRestaurant(uuid);
+    }
+
     public static List<Restaurant> retrieveAllRestaurants() {
         return restaurantRepository.retrieveAllRestaurants();
     }

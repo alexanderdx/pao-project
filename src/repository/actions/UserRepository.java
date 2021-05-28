@@ -11,6 +11,10 @@ public interface UserRepository {
 
     boolean addDriver(Driver driver);
 
+    boolean deleteCustomer(UUID uuid);
+
+    boolean deleteDriver(UUID uuid);
+
     List<Customer> getAllCustomers();
 
     List<Driver> getAllDrivers();

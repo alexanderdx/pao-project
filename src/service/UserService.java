@@ -18,6 +18,14 @@ public class UserService {
         return userRepository.addDriver(driver);
     }
 
+    public static boolean deleteCustomerByID(UUID uuid) {
+        return userRepository.deleteCustomer(uuid);
+    }
+
+    public static boolean deleteDriverByID(UUID uuid) {
+        return userRepository.deleteDriver(uuid);
+    }
+
     public static List<Customer> getAllCustomers() {
         return userRepository.getAllCustomers();
     }
