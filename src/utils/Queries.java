@@ -20,4 +20,16 @@ public class Queries {
             + "FROM restaurant_meal rm "
             + "INNER JOIN meal m ON rm.mealID = m.id "
             + "WHERE rm.restaurantID = ?";
+
+    public static final String ADD_CUSTOMER = "INSERT INTO customer(id, firstName, lastName, location, phone) "
+            + "VALUES (?, ?, ?, ?, ?) ";
+
+    public static final String RETRIEVE_ALL_CUSTOMERS = "SELECT id, firstName, lastName, location, phone FROM customer";
+
+    public static final String RETRIEVE_ALL_DRIVERS = "SELECT id, firstName, lastName, location, phone, licensePlate, carModel, isAvailable FROM driver";
+
+    public static final String ADD_MEAL = "INSERT INTO meal(id, ingredients, weight, category, name, price) "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
+
+    public static final String DELETE_MEAL = "DELETE FROM meal WHERE id = ?";
 }

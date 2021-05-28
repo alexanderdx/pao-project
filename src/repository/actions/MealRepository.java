@@ -12,4 +12,8 @@ public interface MealRepository {
     List<Meal> getMealsFromRestaurant(UUID restaurantID);
 
     Optional<Meal> getMealByID(UUID id);
+
+    boolean addMeal(Meal meal);
+
+    boolean deleteMeal(UUID mealID);
 }

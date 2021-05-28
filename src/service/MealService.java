@@ -20,4 +20,12 @@ public class MealService {
     public static Optional<Meal> getMealByID(UUID id) {
         return mealRepository.getMealByID(id);
     }
+
+    public static boolean addMeal(Meal meal) {
+        return mealRepository.addMeal(meal);
+    }
+
+    public static boolean deleteMealByID(UUID mealID) {
+        return mealRepository.deleteMeal(mealID);
+    }
 }

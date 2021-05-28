@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -52,12 +54,18 @@ public class Customer extends User {
     @Override
     public String toString() {
         return "Customer{" +
-                "firstName='" + super.getFirstName() + '\'' +
+                "uuid= " + super.getUUID().toString() + '\'' +
+                ", firstName='" + super.getFirstName() + '\'' +
                 ", lastName='" + super.getLastName() + '\'' +
                 ", address='" + super.getLocation().getAddress() + '\'' +
                 ", phone='" + super.getPhone() + '\'' +
-                "orders=" + orders +
+                ", orders=" + orders +
                 ", cart=" + cart +
                 '}';
+    }
+
+    public static Customer fromResultSet(ResultSet resultSet) throws SQLException {
+        return new Customer(UUID.fromString(resultSet.getString(1)), resultSet.getString(2), resultSet.getString(3),
+                new Location(resultSet.getString(4)), resultSet.getString(5));
     }
 }

@@ -17,6 +17,39 @@ public class MealRepositoryImpl implements MealRepository {
     private final DbConnection dbConnection = DbConnection.getInstance();
 
     @Override
+    public boolean addMeal(Meal meal) {
+        try {
+            PreparedStatement pstm = dbConnection.getDBConnection().prepareStatement(Queries.ADD_MEAL);
+            pstm.setString(1, meal.getUUID().toString());
+            pstm.setString(2, String.join(", ", meal.getIngredients()));
+            pstm.setString(3, Integer.toString(meal.getWeight()));
+            pstm.setString(4, meal.getCategory());
+            pstm.setString(5, meal.getName());
+            pstm.setString(6, Double.toString(meal.getPrice()));
+
+            return pstm.executeUpdate() == 1;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean deleteMeal(UUID mealID) {
+        try {
+            PreparedStatement stmt = dbConnection.getDBConnection().prepareStatement(Queries.DELETE_MEAL);
+            stmt.setString(1, mealID.toString());
+
+            return stmt.executeUpdate() == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public List<Meal> retrieveAllMeals() {
         List<Meal> meals = new ArrayList<>();
 

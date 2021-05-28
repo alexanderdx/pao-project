@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 import model.Customer;
 import model.Driver;
 import model.Location;
@@ -27,8 +28,20 @@ public class MenuInterfaceService {
         System.out.println("Name:");
         String name = in.nextLine();
 
+        if (name.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
         System.out.println("Address:");
-        Location location = new Location(in.nextLine());
+        String address = in.nextLine();
+
+        if (address.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        Location location = new Location(address);
 
         System.out.println("Rating:");
         double rating = parseDoubleWithException();
@@ -82,6 +95,70 @@ public class MenuInterfaceService {
 
         RestaurantService.addRestaurant(restaurant);
         logger.log("A restaurant was added");
+    }
+
+    public static void addMeal() {
+        String nume_preparat;
+        List<String> ingrediente;
+        String categorie;
+        double pret;
+        int weight;
+
+        System.out.println("Nume preparat: ");
+        String input = in.nextLine();
+        if (input.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        nume_preparat = input;
+
+        System.out.println("Ingrediente preparat (separate prin virgula): ");
+        input = in.nextLine();
+        if (input.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        ingrediente = Arrays.asList(input.split(","));
+
+        System.out.println("Categoria preparatului: ");
+        input = in.nextLine();
+        if (input.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        categorie = input;
+
+        System.out.println("Pretul preparatului: ");
+        pret = parseDoubleWithException();
+        if (pret == -1) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        System.out.println("Gramajul preparatului: ");
+        weight = parseIntWithException();
+        if (weight == -1) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        MealService.addMeal(new Meal(nume_preparat, ingrediente, pret, weight, categorie));
+    }
+
+    public static void deleteMeal() {
+        String uuid;
+        System.out.println("Introduceti ID-ul preparatului: ");
+
+        uuid = in.nextLine();
+        if (uuid.isBlank()) {
+            System.out.println("Operation aborted!");
+            return;
+        }
+
+        MealService.deleteMealByID(UUID.fromString(uuid));
     }
 
     public static void registerCustomer() {
@@ -174,17 +251,85 @@ public class MenuInterfaceService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        report = new StringBuilder();
+        List<Customer> customers = UserService.getAllCustomers();
+
+        report.append("id, firstName, lastName, location, phone\n");
+        for (Customer c : customers) {
+            report.append(c.getUUID().toString()).append(", ");
+            report.append(c.getFirstName()).append(", ");
+            report.append(c.getLastName()).append(", ");
+            report.append(c.getLocation().getAddress()).append(", ");
+            report.append(c.getPhone());
+            report.append("\n");
+        }
+        try {
+            if (!Files.exists(Paths.get(path + "customers.csv"))) {
+                Files.createFile(Paths.get(path + "customers.csv"));
+            }
+            Files.write(Paths.get(path + "customers.csv"), report.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        report = new StringBuilder();
+        List<Driver> drivers = UserService.getAllDrivers();
+
+        report.append("id, firstName, lastName, location, phone, licensePlate, carModel, isAvailable\n");
+        for (Driver d : drivers) {
+            report.append(d.getUUID().toString()).append(", ");
+            report.append(d.getFirstName()).append(", ");
+            report.append(d.getLastName()).append(", ");
+            report.append(d.getLocation().getAddress()).append(", ");
+            report.append(d.getPhone()).append(", ");
+            report.append(d.getLicensePlate()).append(", ");
+            report.append(d.getCarModel()).append(", ");
+            report.append(d.getAvailability());
+            report.append("\n");
+        }
+        try {
+            if (!Files.exists(Paths.get(path + "drivers.csv"))) {
+                Files.createFile(Paths.get(path + "drivers.csv"));
+            }
+            Files.write(Paths.get(path + "drivers.csv"), report.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void printUsers() {
+        logger.log("All users were printed");
 
+        List<Customer> customers = UserService.getAllCustomers();
+        if (customers != null) {
+            customers.forEach(System.out::println);
+        }
+        else {
+            System.out.println("There are no customers registered!");
+        }
+
+        List<Driver> drivers = UserService.getAllDrivers();
+        if (drivers != null) {
+            drivers.forEach(System.out::println);
+        }
+        else {
+            System.out.println("There are no drivers registered!");
+        }
     }
 
     public static void printRestaurants() {
+        logger.log("All restaurants were printed");
+
         List<Restaurant> restaurants = RestaurantService.retrieveAllRestaurants();
-        for (Restaurant r : restaurants) {
-            System.out.println(r);
-        }
+        restaurants.forEach(System.out::println);
+    }
+
+    public static void printAllMeals() {
+        logger.log("All meals were printed");
+
+        List<Meal> meals = MealService.retrieveAllMeals();
+        meals.forEach(System.out::println);
     }
 
     private static int parseIntWithException() {

@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
 public class Driver extends User {
@@ -14,7 +16,7 @@ public class Driver extends User {
         this.isAvailable = true;
     }
 
-    public Driver(UUID id, String firstName, String lastName, Location location, String phone, String licensePlate, String carModel) {
+    public Driver(UUID id, String firstName, String lastName, Location location, String phone, String licensePlate, String carModel, boolean isAvailable) {
         super(id, firstName, lastName, location, phone);
         this.licensePlate = licensePlate;
         this.carModel = carModel;
@@ -44,12 +46,18 @@ public class Driver extends User {
     @Override
     public String toString() {
         return "Driver{" +
-                "firstName='" + super.getFirstName() + '\'' +
+                "uuid= " + super.getUUID().toString() +
+                ", firstName='" + super.getFirstName() + '\'' +
                 ", lastName='" + super.getLastName() + '\'' +
                 ", address='" + super.getLocation().getAddress() + '\'' +
                 ", phone='" + super.getPhone() + '\'' +
-                "licensePlate='" + licensePlate + '\'' +
+                ", licensePlate='" + licensePlate + '\'' +
                 ", carModel='" + carModel + '\'' +
                 '}';
+    }
+
+    public static Driver fromResultSet(ResultSet resultSet) throws SQLException {
+        return new Driver(UUID.fromString(resultSet.getString(1)), resultSet.getString(2), resultSet.getString(3),
+                new Location(resultSet.getString(4)), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getBoolean(8));
     }
 }
